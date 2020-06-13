@@ -23,4 +23,7 @@ If Django is installed, you should see the version of your installation. If it i
 
 `$ python manage.py runserver`
 
-*[troubleshooting for this section]([https://docs.djangoproject.com/en/3.0/intro/tutorial01/](https://docs.djangoproject.com/en/3.0/intro/tutorial01/))*
+*[troubleshooting for this section](https://docs.djangoproject.com/en/3.0/intro/tutorial01/](https://docs.djangoproject.com/en/3.0/intro/tutorial01/)*
+
+
+
