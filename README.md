@@ -3,17 +3,17 @@
 
 ## Create a Heroku app
 
-### Check that you have python installed
+### Python setup
 
 `$ python3 -V` -> `Python 3.7.3`
 
-### Check that you have Django installed
+### Django setup
 
 `$ python3 -m django --version` -> `2.2.13`
 
 If Django is installed, you should see the version of your installation. If it isn’t, you’ll get an error telling “No module named django”.
 
-### Create a project
+### Create a Django project
 
 `$ django-admin startproject [projectname]`
 
@@ -25,5 +25,153 @@ If Django is installed, you should see the version of your installation. If it i
 
 *[troubleshooting for this section](https://docs.djangoproject.com/en/3.0/intro/tutorial01/)*
 
+## Deploy to Heroku
 
+
+### Heroku setup
+
+To verify your CLI installation, use the  `heroku --version`  command:
+`$ heroku --version` -> `$ heroku/7.0.0 (darwin-x64) node-v8.0.0`
+
+After you install the CLI, run the `heroku login` command.
+
+Now you’re ready to create your first Heroku app:
+`heroku create`
+
+*[troubleshooting for this section](https://devcenter.heroku.com/articles/heroku-cli)*
+
+### Github setup
+`git --version` -> `git version 2.21.0 (Apple Git-122.2)`
+
+*[troubleshooting for this section](https://confluence.atlassian.com/crucible042/installing-and-upgrading-git-869175555.html)*
+
+### Getting Ready to Deploy
+
+Before we can push our Django app to Heroku, Heroku needs a little more information on how to run the app.
+
+Specifically, Heroku needs 6 changes to our out-of-the-box Django app:
+
+1.  Gunicorn
+2.  `Procfile`
+3.  django-heroku
+4.  `STATIC_ROOT`  /  `PROJECT_ROOT`  in  `settings.py`
+5.  `requirements.txt`
+6.  `runtime.txt`
+
+
+#### 1. Gunicorn
+
+Gunicorn is an open-source web server for Python. It allows Heroku to deploy our application across various “workers.” In your project’s directory, run:
+
+`$ python3`
+`>>> import gunicorn`
+`>>> print(gunicorn.__version__)`
+`20.0.4`
+
+if you don't see it run:
+`pip3 install gunicorn`
+
+In addition to Gunicorn, check to see that you have the following:
+```
+dj-database-url==0.5.0
+Django==2.2.13
+django-heroku==0.3.1
+gunicorn==20.0.4
+psycopg2==2.7.5
+pytz==2019.3
+whitenoise==4.1.4
+```
+
+#### 2. Procfile
+
+A Procfile is something unique to Heroku. It’s a file in your project’s root directory that tells Heroku how your app should start and run.
+
+In our case, we’ll use our Procfile to tell Heroku to run a Gunicorn server.
+
+The good news is Django comes with out-of-the-box support for Gunicorn servers, because they both follow the conventions of [WSGI](https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface).
+
+In the Procfile, we’ll tell Heroku to start a Gunicorn server and then point that server to our Django project’s default WSGI interface.
+
+In  `[projectname]/`  , run the following command to create the Procfile:
+
+`echo 'web: gunicorn [projectname].wsgi --log-file -' > Procfile`
+
+You’ll need to replace  `[projectname].wsgi`  with  `your_project_name.wsgi`.
+
+#### 3. Django-heroku
+
+Django is a pretty popular framework, so Heroku has created a module called [django-heroku](https://github.com/heroku/django-heroku)  that helps with settings, testing, and logging automatically.
+
+To install it, make sure you’re in  `[projectname]/`  then:
+
+`pip3 install django-heroku`
+
+With the module successfully installed, we can now add it to our Django project’s  `settings.py`  . Open  `[projectname]/[projectname]/settings.py`  .
+
+At the top of  `settings.py`  import the module. Then, at the very bottom, call it:
+
+```
+import django_heroku
+...# All of your settings here...
+django_heroku.settings(locals())
+```
+
+Save  `settings.py`  , but don’t close it. We have more changes to make.
+
+#### 4. STATIC_ROOT & PROJECT_ROOT
+
+Search your  `settings.py`  for an environment variable called  `STATIC_URL`.
+
+Next to that setting, we’ll also need to give Heroku more context about where static files (images, scripts, etc) are stored.
+
+We’ll add two new variables,  `STATIC_ROOT`  and  `PROJECT_ROOT`  , in addition to  `STATIC_URL`. That section of  `settings.py`  should now look like this:
+
+```
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))  
+STATIC_URL = '/static/'  
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+```
+
+#### 5. requirements.txt
+
+Next, we need to tell Heroku about all the packages we’ve installed:
+
+-   Django
+-   django-heroku
+-   Gunicorn
+
+In addition, those packages have installed their own dependencies. You may not have realized it, but our little application has now installed 7 different modules under the hood that allow it to run.
+
+How do we keep track of all the modules we’ve installed?
+
+Easy! We created a clean virtual environment when we started the project, and we’ve used pip to install everything we need. So, pip knows what we’ve installed and can create a handy list for us.
+
+Make sure you’re in the  `[project_name]`  directory, then:
+
+`pip3 freeze > requirements.txt`
+
+Check out  `requirements.txt`  to make sure it looks right. Depending when you read this tutorial, this list could change:
+
+```
+dj-database-url==0.5.0
+Django==2.2.13
+django-heroku==0.3.1
+gunicorn==20.0.4
+psycopg2==2.7.5
+pytz==2019.3
+whitenoise==4.1.4
+```
+
+As you build your Django project, chances are you’ll find some other module you need. If so, don’t forget to  `pip3 freeze > requirements.txt`  whenever you deploy those changes.
+
+## 6. runtime.txt
+
+The final thing we need to do before deploying is tell Heroku what version of Python to use.
+
+`echo 'python-3.7.3' > runtime.txt`
+
+# gitignore
+## 1. Add your project’s files to Git
+## 2. Commit the files to Git
+## 3. Push the files to the Heroku repository
 
