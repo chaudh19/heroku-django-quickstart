@@ -126,3 +126,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 django_heroku.settings(locals())
+
+heroku config:set DISABLE_COLLECTSTATIC=1
