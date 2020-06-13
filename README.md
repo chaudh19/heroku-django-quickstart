@@ -71,18 +71,23 @@ Gunicorn is an open-source web server for Python. It allows Heroku to deploy our
 if you don't see it run:
 `pip3 install gunicorn`
 
-In addition to Gunicorn, check to see that you have the following:
+#### 2. dj-database-url + psycopg2-binary
+
+ In your project’s directory, run:
+
+`$ pip3 install dj-database-url`
+`$ pip3 install psycopg2==2.7.5`
+
+Then add the following to the bottom of  `settings.py`:
+
 ```
-dj-database-url==0.5.0
-Django==2.2.13
-django-heroku==0.3.1
-gunicorn==20.0.4
-psycopg2==2.7.5
-pytz==2019.3
-whitenoise==4.1.4
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 ```
 
-#### 2. Procfile
+This will parse the values of the  `DATABASE_URL`  environment variable and convert them to something Django can understand.
+
+#### 3. Procfile
 
 A Procfile is something unique to Heroku. It’s a file in your project’s root directory that tells Heroku how your app should start and run.
 
@@ -98,7 +103,7 @@ In  `[projectname]/`  , run the following command to create the Procfile:
 
 You’ll need to replace  `[projectname].wsgi`  with  `your_project_name.wsgi`.
 
-#### 3. Django-heroku
+#### 3. django-heroku
 
 Django is a pretty popular framework, so Heroku has created a module called [django-heroku](https://github.com/heroku/django-heroku)  that helps with settings, testing, and logging automatically.
 
@@ -116,6 +121,8 @@ import django_heroku
 django_heroku.settings(locals())
 ```
 
+[troubleshoot this section](https://devcenter.heroku.com/articles/django-app-configuration)
+
 Save  `settings.py`  , but don’t close it. We have more changes to make.
 
 #### 4. STATIC_ROOT & PROJECT_ROOT
@@ -132,25 +139,46 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 ```
 
-#### 5. requirements.txt
+#### 5. whitenoise
+
+Edit your settings.py file and add WhiteNoise to the MIDDLEWARE list. The WhiteNoise middleware should be placed directly after the Django SecurityMiddleware (if you are using it) and before all other middleware:
+
+```
+MIDDLEWARE = [
+  'django.middleware.security.SecurityMiddleware',
+  'whitenoise.middleware.WhiteNoiseMiddleware',
+  # ...
+]
+```
+
+That’s it – WhiteNoise will now serve your static files (you can confirm it’s working using the steps below). 
+
+*(the below whitenoise configs are optional)*
+
+WhiteNoise comes with a storage backend which automatically takes care of compressing your files and creating unique names for each version so they can safely be cached forever. To use it, just add this to your  `settings.py`:
+
+`STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'`
+
+*[troubleshoot this section](http://whitenoise.evans.io/en/stable/django.html#django-middleware)*
+
+#### 6. requirements.txt
 
 Next, we need to tell Heroku about all the packages we’ve installed:
 
--   Django
--   django-heroku
--   Gunicorn
-
-In addition, those packages have installed their own dependencies. You may not have realized it, but our little application has now installed 7 different modules under the hood that allow it to run.
-
-How do we keep track of all the modules we’ve installed?
-
-Easy! We created a clean virtual environment when we started the project, and we’ve used pip to install everything we need. So, pip knows what we’ve installed and can create a handy list for us.
+- dj-database-url
+- Django
+- django-heroku
+- gunicorn
+- psycopg2
+- psycopg2-binary
+- pytz
+- whitenoise
 
 Make sure you’re in the  `[project_name]`  directory, then:
 
 `pip3 freeze > requirements.txt`
 
-Check out  `requirements.txt`  to make sure it looks right. Depending when you read this tutorial, this list could change:
+Check out  `requirements.txt`  to make sure it looks right:
 
 ```
 dj-database-url==0.5.0
