@@ -25,18 +25,22 @@ If Django is installed, you should see the version of your installation. If it i
 
 *[troubleshooting for this section](https://docs.djangoproject.com/en/3.0/intro/tutorial01/)*
 
-## Deploy to Heroku
+## Get Ready to Deploy
 
 
 ### Heroku setup
 
 To verify your CLI installation, use the  `heroku --version`  command:
-`$ heroku --version` -> `$ heroku/7.0.0 (darwin-x64) node-v8.0.0`
+```
+$ heroku --version` -> `$ heroku/7.0.0 (darwin-x64) node-v8.0.0
+```
 
 After you install the CLI, run the `heroku login` command.
 
 Now you’re ready to create your first Heroku app:
-`heroku create`
+```
+heroku create
+```
 
 *[troubleshooting for this section](https://devcenter.heroku.com/articles/heroku-cli)*
 
@@ -52,31 +56,39 @@ Before we can push our Django app to Heroku, Heroku needs a little more informat
 Specifically, Heroku needs 6 changes to our out-of-the-box Django app:
 
 1.  Gunicorn
-2.  `Procfile`
+2.  Procfile
 3.  django-heroku
-4.  `STATIC_ROOT`  /  `PROJECT_ROOT`  in  `settings.py`
-5.  `requirements.txt`
-6.  `runtime.txt`
+4.  STATIC_ROOT  /  PROJECT_ROOT in settings.py
+5.  requirements.txt
+6.  runtime.txt
 
 
 #### 1. Gunicorn
 
 Gunicorn is an open-source web server for Python. It allows Heroku to deploy our application across various “workers.” In your project’s directory, run:
 
-`$ python3`
-`>>> import gunicorn`
-`>>> print(gunicorn.__version__)`
-`20.0.4`
+```
+$ python3
+>>> import gunicorn
+>>> print(gunicorn.__version__)
+20.0.4
+```
 
 if you don't see it run:
-`pip3 install gunicorn`
+```
+pip3 install gunicorn
+```
 
 #### 2. dj-database-url + psycopg2-binary
 
  In your project’s directory, run:
 
-`$ pip3 install dj-database-url`
-`$ pip3 install psycopg2==2.7.5`
+```
+$ pip3 install dj-database-url
+$ pip3 install psycopg2
+```
+
+If `pip3 install psycopg2` isn't working, try `pip3 install psycopg2==2.7.5`
 
 Then add the following to the bottom of  `settings.py`:
 
@@ -99,7 +111,9 @@ In the Procfile, we’ll tell Heroku to start a Gunicorn server and then point t
 
 In  `[projectname]/`  , run the following command to create the Procfile:
 
-`echo 'web: gunicorn [projectname].wsgi --log-file -' > Procfile`
+```
+echo 'web: gunicorn [projectname].wsgi --log-file -' > Procfile
+```
 
 You’ll need to replace  `[projectname].wsgi`  with  `your_project_name.wsgi`.
 
@@ -111,8 +125,9 @@ To install it, make sure you’re in  `[projectname]/`  then:
 
 `pip3 install django-heroku`
 
-With the module successfully installed, we can now add it to our Django project’s  `settings.py`  . Open  `[projectname]/[projectname]/settings.py`  .
+With the module successfully installed, we can now add it to our Django project’s  `settings.py`.
 
+Open  `[projectname]/[projectname]/settings.py`.
 At the top of  `settings.py`  import the module. Then, at the very bottom, call it:
 
 ```
@@ -121,9 +136,9 @@ import django_heroku
 django_heroku.settings(locals())
 ```
 
-[troubleshoot this section](https://devcenter.heroku.com/articles/django-app-configuration)
+*[troubleshoot this section](https://devcenter.heroku.com/articles/django-app-configuration)*
 
-Save  `settings.py`  , but don’t close it. We have more changes to make.
+Save  `settings.py`, but don’t close it. We have more changes to make.
 
 #### 4. STATIC_ROOT & PROJECT_ROOT
 
@@ -131,7 +146,7 @@ Search your  `settings.py`  for an environment variable called  `STATIC_URL`.
 
 Next to that setting, we’ll also need to give Heroku more context about where static files (images, scripts, etc) are stored.
 
-We’ll add two new variables,  `STATIC_ROOT`  and  `PROJECT_ROOT`  , in addition to  `STATIC_URL`. That section of  `settings.py`  should now look like this:
+We’ll add two new variables, `STATIC_ROOT` and `PROJECT_ROOT`, in addition to `STATIC_URL`. That section of `settings.py` should now look like this:
 
 ```
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))  
@@ -198,8 +213,35 @@ The final thing we need to do before deploying is tell Heroku what version of Py
 
 `echo 'python-3.7.3' > runtime.txt`
 
-# gitignore
-## 1. Add your project’s files to Git
-## 2. Commit the files to Git
-## 3. Push the files to the Heroku repository
+## Deploy
+### 1. Add your project’s files to Git
+```
+git init
+git add .
+```
+### 2. Commit the files to Git
+```
+git commit -am "init"
+```
+
+### 3. Push the files to the Heroku repository
+
+```
+git push heroku master
+```
+
+## Push to github
+### 1. Create a new repository
+You can visit [this page](https://github.com/new). Don't initialize it with a README
+
+### 2. Create a README
+```
+echo "# test" >> README.md
+```
+
+### 3. Push the existing repository from the command line
+```
+git remote add origin https://github.com/chaudh19/test.git
+git push -u origin master
+```
 
