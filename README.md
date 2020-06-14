@@ -384,6 +384,12 @@ $ heroku run python3 manage.py createsuperuser
 $ heroku open
 ```
 
+# pushing
+```
+$ git config alias.pushall '!git push origin master && git push heroku master'
+$ git pushall
+```
+
 # debugging
 
 ```
