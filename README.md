@@ -161,7 +161,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 #### 5. whitenoise
 
-Edit your settings.py file and add WhiteNoise to the MIDDLEWARE list. The WhiteNoise middleware should be placed directly after the Django SecurityMiddleware (if you are using it) and before all other middleware:
+WhiteNoise helps Django manage static files (images, scripts, etc) to load your site faster. Edit your `settings.py` file and add WhiteNoise to the MIDDLEWARE list. The WhiteNoise middleware should be placed directly after the Django SecurityMiddleware (if you are using it) and before all other middleware:
 
 ```
 MIDDLEWARE = [
@@ -173,11 +173,13 @@ MIDDLEWARE = [
 
 That’s it – WhiteNoise will now serve your static files (you can confirm it’s working using the steps below). 
 
-*(the below whitenoise configs are optional)*
+Django has a variable that lets it know where to store and retrieve static files. Let’s point it to WhiteNoise.
 
-WhiteNoise comes with a storage backend which automatically takes care of compressing your files and creating unique names for each version so they can safely be cached forever. To use it, just add this to your  `settings.py`:
+```
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+```
 
-`STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'`
+Add it above in the same place as your `STATIC_URL` and `STATIC_ROOT` variables.
 
 *[troubleshoot this section](http://whitenoise.evans.io/en/stable/django.html#django-middleware)*
 
@@ -222,16 +224,33 @@ $ echo 'python-3.7.3' > runtime.txt
 
 ## Deploy
 ### 1. Add your project’s files to Git
+Do this in the same folder as `manage.py`:
 ```
 $ git init
 $ git add .
+$ touch .gitignore
 ```
-### 2. Commit the files to Git
+
+### 2. Create a .gitignore file
+
+Now `open .gitignore` with your favorite text editor and paste in the following information about files Git should ignore:
+
+```
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+```
+Now, you won’t bog down the deployment process with your log and cache files. We’ll keep Heroku nice and clean. Below, we’ll add `db.sqlite` to this list because we’ll be using a different database on Heroku.
+
+### 3. Commit the files to Git
 ```
 $ git commit -am "init"
 ```
 
-### 3. Push the files to the Heroku repository
+### 4. Push the files to the Heroku repository
 
 ```
 $ git push heroku master
@@ -252,7 +271,84 @@ $ git remote add origin https://github.com/chaudh19/test.git
 $ git push -u origin master
 ```
 
+## Using Postgres Remotely & SQLite Locally
 
+The key thing we’ll be doing here is setting `DATABASE_URL` to the Heroku-provided variable when we’re on Heroku. When we’re working locally, we’ll use a local file — `.env` — to set `DATABASE_URL` to point to SQLite. That way, any time we use the `DATABASE_URL` variable it will point to the correct database based on the environment.
+
+Inside your project’s root directory (alongside `manage.py`), run:
+```
+pip3 install python-dotenv
+```
+This installs `python-dotenv` and also a related module called `dj-database-url`.
+
+Add the new modules to your `requirements.txt`:
+```
+pip3 freeze > requirements.txt
+```
+
+### Create .env
+We’ll use a file called `.env` to tell Django to use SQLite when running locally.
+To create `.env` and have it point Django to your SQLite database:
+```
+echo 'DATABASE_URL=sqlite:///db.sqlite3' > .env
+```
+Now, we don’t want .env to make it to Heroku, because .env is the part of our app that points to SQLite and Heroku doesn’t like SQLite.
+So, we need git to ignore .env when pushing to Heroku. Run:
+Add `.env` to `.gitignore`
+
+### Update settings.py
+Now that we have a `.env` file, we need to tell Django to use it. Hence why we downloaded the `python-dotenv` plugin earlier.
+
+In your project’s `settings.py` make the following changes to get Django to use `.env`.
+#### 1. Import new modules at the top of the file:
+```
+import dj_database_url
+import dotenv
+```
+#### 2. Load environment variables from .env if it exists:
+```
+# This line should already exist in your settings.py
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# This is new:
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
+```
+Since `.env` won’t exist on Heroku, `dotenv.load_dotenv(dotenv_file)` will never get called on Heroku and Heroku will proceed to try to find its own database — Postgres.
+
+#### 3. Change `DATABASES`
+
+Currently your `settings.py` has this:
+```
+DATABASES = {    
+    'default': {        
+        'ENGINE': 'django.db.backends.sqlite3',        
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),    
+    }
+}
+```
+Change it to this:
+```
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+```
+
+The idea here is to clear the `DATABASES` variable and then set the `'default'` key using the `dj_database_url` module. This module uses Heroku’s `DATABASE_URL` variable if it’s on Heroku, or it uses the `DATABASE_URL` we set in the `.env` file if we’re working locally.
+
+#### 4. sslmode issue workaround
+
+If you ran the Django application as specified above, you might get an error when working locally because the `dj_database_url` module wants to log in with SSL. Heroku Postgres requires SSL, but SQLite doesn’t need or expect it.
+So, we’ll use a hacky workaround to get dj_database_url to forget about SSL at the last second.
+As the very last line in your `settings.py`, add:
+```
+# This should already be in your settings.py
+django_heroku.settings(locals())
+# This is new
+del DATABASES['default']['OPTIONS']['sslmode']
+```
+#### 5. Try it out!
+
+Locally:
 ```
 $ python3 manage.py makemigrations
 $ python3 manage.py migrate
@@ -260,9 +356,18 @@ $ python3 manage.py createsuperuser
 $ python3 manage.py runserver
 ```
 
-
+And on heroku
+```
 $ heroku run python3 manage.py migrate
 $ heroku run python3 manage.py createsuperuser
+```
 
+# debugging
 
+```
 heroku logs --tail
+```
+
+sources:
+- https://medium.com/@BennettGarner/deploying-django-to-heroku-procfile-static-root-other-pitfalls-e7ab8b2ba33b
+- https://blog.usejournal.com/deploying-django-to-heroku-connecting-heroku-postgres-fcc960d290d1
