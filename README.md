@@ -3,11 +3,11 @@
 
 ## Create a Heroku app
 
-### Python setup
+### Check your Python setup
 
 `$ python3 -V` -> `Python 3.7.3`
 
-### Django setup
+### Check your Django setup
 
 `$ python3 -m django --version` -> `2.2.13`
 
@@ -21,21 +21,22 @@ If Django is installed, you should see the version of your installation. If it i
 
 ### Run locally
 
-`$ python manage.py runserver`
+`$ python3 manage.py runserver`
 
 *[troubleshooting for this section](https://docs.djangoproject.com/en/3.0/intro/tutorial01/)*
 
-## Get Ready to Deploy
+## Get ready to deploy
 
 
 ### Heroku setup
 
-To verify your CLI installation, use the  `heroku --version`  command:
+Verify your Heroku CLI installation with the  `heroku --version`  command:
 ```
-$ heroku --version` -> `$ heroku/7.0.0 (darwin-x64) node-v8.0.0
+$ heroku --version
+>> heroku/7.0.0 (darwin-x64) node-v8.0.0
 ```
 
-After you install the CLI, run the `heroku login` command.
+Next, run the `heroku login` command.
 
 Now you’re ready to create your first Heroku app:
 ```
@@ -44,12 +45,16 @@ heroku create
 
 *[troubleshooting for this section](https://devcenter.heroku.com/articles/heroku-cli)*
 
-### Github setup
-`git --version` -> `git version 2.21.0 (Apple Git-122.2)`
+### Git setup
+Verify your git setup with the  `git --version`  command:
+```
+$ git --version
+>> git version 2.21.0 (Apple Git-122.2)
+```
 
 *[troubleshooting for this section](https://confluence.atlassian.com/crucible042/installing-and-upgrading-git-869175555.html)*
 
-### Getting Ready to Deploy
+### Get ready to deploy
 
 Before we can push our Django app to Heroku, Heroku needs a little more information on how to run the app.
 
@@ -65,7 +70,7 @@ Specifically, Heroku needs 6 changes to our out-of-the-box Django app:
 
 #### 1. Gunicorn
 
-Gunicorn is an open-source web server for Python. It allows Heroku to deploy our application across various “workers.” In your project’s directory, run:
+Gunicorn is an open-source web server for Python. It allows Heroku to deploy our application across various “workers.” In your project’s directory, verify that you have gunicorn:
 
 ```
 $ python3
@@ -81,7 +86,7 @@ pip3 install gunicorn
 
 #### 2. dj-database-url + psycopg2-binary
 
- In your project’s directory, run:
+In your project’s directory, verify that you have dj-database-url and psycopg2:
 
 ```
 $ pip3 install dj-database-url
@@ -90,7 +95,7 @@ $ pip3 install psycopg2
 
 If `pip3 install psycopg2` isn't working, try `pip3 install psycopg2==2.7.5`
 
-Then add the following to the bottom of  `settings.py`:
+Then add the following to the bottom of `settings.py`:
 
 ```
 import dj_database_url
@@ -109,7 +114,7 @@ The good news is Django comes with out-of-the-box support for Gunicorn servers, 
 
 In the Procfile, we’ll tell Heroku to start a Gunicorn server and then point that server to our Django project’s default WSGI interface.
 
-In  `[projectname]/`  , run the following command to create the Procfile:
+In `[projectname]/`, run the following command to create the Procfile:
 
 ```
 echo 'web: gunicorn [projectname].wsgi --log-file -' > Procfile
@@ -121,14 +126,14 @@ You’ll need to replace  `[projectname].wsgi`  with  `your_project_name.wsgi`.
 
 Django is a pretty popular framework, so Heroku has created a module called [django-heroku](https://github.com/heroku/django-heroku)  that helps with settings, testing, and logging automatically.
 
-To install it, make sure you’re in  `[projectname]/`  then:
+To install it, make sure you’re in `[projectname]/` then:
 
 `pip3 install django-heroku`
 
-With the module successfully installed, we can now add it to our Django project’s  `settings.py`.
+With the module successfully installed, we can now add it to our Django project’s `settings.py`.
 
-Open  `[projectname]/[projectname]/settings.py`.
-At the top of  `settings.py`  import the module. Then, at the very bottom, call it:
+Open `[projectname]/[projectname]/settings.py`.
+At the top of `settings.py`, import the module. Then, at the very bottom, call it:
 
 ```
 import django_heroku
@@ -142,7 +147,7 @@ Save  `settings.py`, but don’t close it. We have more changes to make.
 
 #### 4. STATIC_ROOT & PROJECT_ROOT
 
-Search your  `settings.py`  for an environment variable called  `STATIC_URL`.
+Search your `settings.py` for an environment variable called  `STATIC_URL`.
 
 Next to that setting, we’ll also need to give Heroku more context about where static files (images, scripts, etc) are stored.
 
@@ -189,7 +194,7 @@ Next, we need to tell Heroku about all the packages we’ve installed:
 - pytz
 - whitenoise
 
-Make sure you’re in the  `[project_name]`  directory, then:
+Make sure you’re in the `[project_name]` directory, then:
 
 `pip3 freeze > requirements.txt`
 
@@ -211,23 +216,25 @@ As you build your Django project, chances are you’ll find some other module yo
 
 The final thing we need to do before deploying is tell Heroku what version of Python to use.
 
-`echo 'python-3.7.3' > runtime.txt`
+```
+$ echo 'python-3.7.3' > runtime.txt
+```
 
 ## Deploy
 ### 1. Add your project’s files to Git
 ```
-git init
-git add .
+$ git init
+$ git add .
 ```
 ### 2. Commit the files to Git
 ```
-git commit -am "init"
+$ git commit -am "init"
 ```
 
 ### 3. Push the files to the Heroku repository
 
 ```
-git push heroku master
+$ git push heroku master
 ```
 
 ## Push to github
@@ -236,12 +243,26 @@ You can visit [this page](https://github.com/new). Don't initialize it with a RE
 
 ### 2. Create a README
 ```
-echo "# test" >> README.md
+$ echo "# test" >> README.md
 ```
 
 ### 3. Push the existing repository from the command line
 ```
-git remote add origin https://github.com/chaudh19/test.git
-git push -u origin master
+$ git remote add origin https://github.com/chaudh19/test.git
+$ git push -u origin master
 ```
 
+
+```
+$ python3 manage.py makemigrations
+$ python3 manage.py migrate
+$ python3 manage.py createsuperuser
+$ python3 manage.py runserver
+```
+
+
+$ heroku run python3 manage.py migrate
+$ heroku run python3 manage.py createsuperuser
+
+
+heroku logs --tail
