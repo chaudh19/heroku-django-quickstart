@@ -385,8 +385,15 @@ $ heroku open
 ```
 
 # pushing
+Shortcuts to make it easier
 ```
+$ git config --global alias.a '!git add -A && git commit -m'
 $ git config alias.pushall '!git push origin master && git push heroku master'
+```
+
+When ready to commit + push
+```
+$ git a "commit message"
 $ git pushall
 ```
 
