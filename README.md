@@ -5,11 +5,17 @@
 
 ### Check your Python setup
 
-`$ python3 -V` -> `Python 3.7.3`
+```
+$ python3 -V
+>> Python 3.7.3
+```
 
 ### Check your Django setup
 
-`$ python3 -m django --version` -> `2.2.13`
+```
+$ python3 -m django --version
+>> 2.2.13
+```
 
 If Django is installed, you should see the version of your installation. If it isn’t, you’ll get an error telling “No module named django”.
 
@@ -21,7 +27,12 @@ If Django is installed, you should see the version of your installation. If it i
 
 ### Run locally
 
-`$ python3 manage.py runserver`
+```
+$ cd [projectname]
+$ python3 manage.py runserver
+```
+
+Open `localhost:8000` and see the app in action!
 
 *[troubleshooting for this section](https://docs.djangoproject.com/en/3.0/intro/tutorial01/)*
 
@@ -77,32 +88,31 @@ $ python3
 >>> import gunicorn
 >>> print(gunicorn.__version__)
 20.0.4
+>>> quit()
 ```
 
-if you don't see it run:
+If you don't see it run:
 ```
 pip3 install gunicorn
 ```
 
-#### 2. dj-database-url + psycopg2-binary
+#### 2. psycopg2-binary
 
-In your project’s directory, verify that you have dj-database-url and psycopg2:
-
+In your project’s directory, verify that you have psycopg2:
 ```
-$ pip3 install dj-database-url
+$ python3
+>>> import psycopg2
+>>> print(psycopg2.__version__)
+2.7.5 (dt dec pq3 ext lo64)
+>>> quit()
+```
+If you don't see it run:
+```
 $ pip3 install psycopg2
 ```
 
 If `pip3 install psycopg2` isn't working, try `pip3 install psycopg2==2.7.5`
 
-Then add the following to the bottom of `settings.py`:
-
-```
-import dj_database_url
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-```
-
-This will parse the values of the  `DATABASE_URL`  environment variable and convert them to something Django can understand.
 
 #### 3. Procfile
 
@@ -117,22 +127,31 @@ In the Procfile, we’ll tell Heroku to start a Gunicorn server and then point t
 In `[projectname]/`, run the following command to create the Procfile:
 
 ```
-echo 'web: gunicorn [projectname].wsgi --log-file -' > Procfile
+echo 'web: gunicorn [projectname].wsgi' > Procfile
 ```
 
-You’ll need to replace  `[projectname].wsgi`  with  `your_project_name.wsgi`.
+You’ll need to replace [projectname] with your project name
 
 #### 3. django-heroku
 
-Django is a pretty popular framework, so Heroku has created a module called [django-heroku](https://github.com/heroku/django-heroku)  that helps with settings, testing, and logging automatically.
+Django is a pretty popular framework, so Heroku has created a module called [django-heroku](https://github.com/heroku/django-heroku) that helps with settings, testing, and logging automatically.
 
-To install it, make sure you’re in `[projectname]/` then:
+To install it, make sure you’re in the same folder as `manage.py` then:
 
-`pip3 install django-heroku`
+```
+$ python3
+>>> import django_heroku
+>>> quit()
+```
+
+If you see an error like `ModuleNotFoundError: No module named 'django_heroku'`, then run:
+```
+$ pip3 install django-heroku
+```
 
 With the module successfully installed, we can now add it to our Django project’s `settings.py`.
 
-Open `[projectname]/[projectname]/settings.py`.
+Open `settings.py`. 
 At the top of `settings.py`, import the module. Then, at the very bottom, call it:
 
 ```
@@ -147,7 +166,7 @@ Save  `settings.py`, but don’t close it. We have more changes to make.
 
 #### 4. STATIC_ROOT & PROJECT_ROOT
 
-Search your `settings.py` for an environment variable called  `STATIC_URL`.
+Search your `settings.py` for an environment variable called `STATIC_URL`.
 
 Next to that setting, we’ll also need to give Heroku more context about where static files (images, scripts, etc) are stored.
 
@@ -203,16 +222,18 @@ Make sure you’re in the `[project_name]` directory, then:
 Check out  `requirements.txt`  to make sure it looks right:
 
 ```
-dj-database-url==0.5.0
+dj-database-url==0.5.0 (we'll add this later)
 Django==2.2.13
 django-heroku==0.3.1
 gunicorn==20.0.4
 psycopg2==2.7.5
+psycopg2-binary==2.8.5
+python-dotenv==0.13.0 (we'll add this later)
 pytz==2019.3
 whitenoise==4.1.4
 ```
 
-As you build your Django project, chances are you’ll find some other module you need. If so, don’t forget to  `pip3 freeze > requirements.txt`  whenever you deploy those changes.
+As you build your Django project, chances are you’ll find some other module you need. If so, don’t forget to  `pip3 freeze > requirements.txt` whenever you deploy those changes.
 
 ## 6. runtime.txt
 
@@ -267,7 +288,7 @@ $ echo "# test" >> README.md
 
 ### 3. Push the existing repository from the command line
 ```
-$ git remote add origin https://github.com/chaudh19/test.git
+$ git remote add origin https://github.com/chaudh19/[NAME OF REPO].git
 $ git push -u origin master
 ```
 
@@ -275,7 +296,6 @@ $ git push -u origin master
 
 The key thing we’ll be doing here is setting `DATABASE_URL` to the Heroku-provided variable when we’re on Heroku. When we’re working locally, we’ll use a local file — `.env` — to set `DATABASE_URL` to point to SQLite. That way, any time we use the `DATABASE_URL` variable it will point to the correct database based on the environment.
 
-Inside your project’s root directory (alongside `manage.py`), run:
 ```
 pip3 install python-dotenv
 ```
@@ -287,8 +307,7 @@ pip3 freeze > requirements.txt
 ```
 
 ### Create .env
-We’ll use a file called `.env` to tell Django to use SQLite when running locally.
-To create `.env` and have it point Django to your SQLite database:
+We’ll use a file called `.env` to tell Django to use SQLite when running locally. To create `.env` and have it point Django to your SQLite database:
 ```
 echo 'DATABASE_URL=sqlite:///db.sqlite3' > .env
 ```
@@ -358,16 +377,20 @@ $ python3 manage.py runserver
 
 And on heroku
 ```
+$ git commit -am "new db changes"
+$ git push heroku master
 $ heroku run python3 manage.py migrate
 $ heroku run python3 manage.py createsuperuser
+$ heroku open
 ```
 
 # debugging
 
 ```
-heroku logs --tail
+$ heroku logs --tail
 ```
 
 sources:
 - https://medium.com/@BennettGarner/deploying-django-to-heroku-procfile-static-root-other-pitfalls-e7ab8b2ba33b
 - https://blog.usejournal.com/deploying-django-to-heroku-connecting-heroku-postgres-fcc960d290d1
+- https://github.com/bennett39/django-heroku-example
