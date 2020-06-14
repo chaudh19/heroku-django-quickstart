@@ -384,7 +384,51 @@ $ heroku run python3 manage.py createsuperuser
 $ heroku open
 ```
 
-# pushing
+# Creating your first view
+```
+python3 manage.py startapp [app_name]
+```
+Let’s write the first view. Open the file [app_name]/views.py and put the following Python code in it:
+
+in `[app_name]/views.py`
+```
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the index.")
+```
+
+This is the simplest view possible in Django. To call the view, we need to map it to a URL - and for this we need a URLconf.
+
+To create a URLconf in the polls directory, create a file called `urls.py` in the `[app_name]` folder. 
+
+In `[app_name]/urls.py` file include the following code:
+
+```
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+```
+
+The next step is to point the root URLconf at the [project_name].urls module. 
+In [project_name]/urls.py, add an import for django.urls.include and insert an include() in the urlpatterns list, so you have:
+
+```
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('[app_name]/', include('[app_name].urls')),
+    path('admin/', admin.site.urls),
+]
+```
+
+# --
+## Pushing
 Shortcuts to make it easier
 ```
 $ git config --global alias.a '!git add -A && git commit -m'
@@ -397,7 +441,7 @@ $ git a "commit message"
 $ git pushall
 ```
 
-# debugging
+## Debugging
 
 ```
 $ heroku logs --tail
