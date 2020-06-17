@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<h1>zxcvbn</h1>
+
+		<form method="POST" id="post-form">
+		  {% csrf_token %}
+		   <div class="form-group">
+		     <textarea class="form-control" id="word" placeholder="word"></textarea>
+		   </div>
+		   <button type="submit" class="btn btn-primary">Submit</button>
+		   <div id="result"></div>
+		</form>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+
+		<script>
+		$(document).on('submit', '#post-form',function(e){
+			e.preventDefault();
+		    $.ajax({
+		        type:'POST',
+		        url:'lookup',
+		        data:{
+		            word:$('#word').val(),
+		            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+		            action: 'post'
+		        },
+		        success:function(json){
+		            // document.getElementById("post-form").reset();
+		            $("#result").text(json['crack_times_display']['offline_slow_hashing_1e4_per_second'] + '-' + json['score']);
+		            console.log(json)
+		        },
+		        error : function(xhr,errmsg,err) {
+		        console.log(xhr.status + ": " + xhr.responseText); 
+		        // provide a bit more info about the error to the console
+		    }
+		    });
+		});
+		</script>
+
+
+		<hr/>
+
+		<h1>ip</h1>
+
+		<div id="ipv4"></div>
+		<div id="ipv6"></div>
+		<div id="city"></div>
+		<div id='map' style='width: 400px; height: 300px;'></div>
+
+		<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
+		<script>
+			var ip = 0
+	        $.getJSON("https://api.ipify.org?format=json", 
+	                                          function(data) { 
+	            $("#ipv4").html(data.ip); 
+	            ip = data.ip; 
+	            var access_key = '65a180a95e50423929002e606706ba23';
+				$.ajax({
+				    url: 'http://api.ipstack.com/' + ip + '?access_key=' + access_key,   
+				    dataType: 'jsonp',
+				    success: function(json) {
+				    	console.log(json)
+				        $("#city").html(json.city);				        
+				    }
+				});
+
+				mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhdWRoMTkiLCJhIjoiYTI3Y2EwMzBlYTJkNmM2Mzg5YzBlODJlZWViMTljMWQifQ.AVM1vNOQDh8bqGSOG2SdlQ';
+				var map = new mapboxgl.Map({
+				    container: 'map',
+				    style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
+				    center: [-122.2312,  37.472], // starting position [lng, lat]
+				    zoom: 9 // starting zoom
+				});
+
+	        }) 
+    	</script> 
+
+    	<hr/>
+
+    	
+
+	</body>
+</html>
