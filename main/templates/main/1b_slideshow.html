@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="col-lg-5 slides_left" >
+		
+		{% for key, value in content.items %}
+			{% if key == page_id %}
+
+				{% for v in value %}
+					{% if v.type == 'Speaker Notes' %}
+			    		
+			    		{% include 'main/1b_slideshow_notes.html' with text=v.text %}
+
+			    	{% else %}
+
+			    		{% include 'main/1b_slideshow_callout.html' with text=v.text %}
+			    	
+			    	{% endif %}
+				{% endfor %}
+
+			{% endif %}
+		{% endfor %}
+		
+	</div>
+	<div class="col-lg-7 slides_right">
+		
+		<div class="row justify-content-center" style="padding:15px">
+			{% include slide_template %}
+		</div>
+		
+		<a href="/main/render_page/{{lesson_id}}/{{prev}}/"> previous </a>
+		<a href="/main/render_page/{{lesson_id}}/{{next}}/"> next </a>
+	</div>
+</div>
+

@@ -31,7 +31,7 @@
 		        },
 		        success:function(json){
 		            // document.getElementById("post-form").reset();
-		            $("#result").text(json['crack_times_display']['offline_slow_hashing_1e4_per_second'] + '-' + json['score']);
+		            $("#result").text(json['crack_times_display']['offline_fast_hashing_1e10_per_second'] + '-' + json['score']);
 		            console.log(json)
 		        },
 		        error : function(xhr,errmsg,err) {
@@ -45,7 +45,7 @@
 
 		<hr/>
 
-		<h1>ip</h1>
+		<!-- <h1>ip</h1>
 
 		<div id="ipv4"></div>
 		<div id="ipv6"></div>
@@ -80,7 +80,7 @@
 
 	        }) 
     	</script> 
-
+ -->
     	<hr/>
 
     	

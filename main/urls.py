@@ -7,4 +7,6 @@ urlpatterns = [
     path('lookup', views.lookup, name='lookup'),
     path('wireframe1', views.wireframe1, name='wireframe1'),
     path('wireframe2', views.wireframe2, name='wireframe2'),
+    path('render_page/<int:lesson_id>/', views.render_intro, name='render_intro'),
+    path('render_page/<int:lesson_id>/<int:page_id>/', views.render_slideshow, name='render_slideshow'),
 ]

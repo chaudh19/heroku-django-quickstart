@@ -1,0 +1,22 @@
+{% extends 'main/0_base.html' %}
+
+{% block content %}
+
+	<nav class="navbar navbar-default">
+		<p>Security > Lesson {{lesson_id}}</p> 
+	</nav>
+
+	<div class="main_page container-fluid">
+
+		{% if special_type == 'intro' %}
+    		
+    		{% include 'main/1a_intro.html' with title=title content=content %}
+
+    	{% else %}
+
+    		{% include 'main/1b_slideshow.html' with title=title content=content %}
+    	
+    	{% endif %}
+		
+    </div>
+{% endblock %}

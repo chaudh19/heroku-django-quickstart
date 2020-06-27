@@ -1,0 +1,128 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+		<style>
+			p {
+				margin: 0px !important;
+			}
+			.navbar-default {
+			    
+			    /* position */
+				position: absolute;
+				height: 55px;
+				width:100%;
+				left: 0px;
+				top: 0px;
+				/*padding-left: 50px;*/
+
+				/* color */
+				background-color: #000 !important;
+			    border-bottom: 1px solid #efefef;
+			    
+			    /* font */
+			    font-family: Sinkin Sans;
+				font-style: normal;
+				font-weight: bold;
+				font-size: 11px;
+				line-height: 11px;
+				color: #FFFFFF;
+			}
+			.main_page {
+				padding-top: 55px;
+			}
+			.intro_left {
+				/* position */
+				height:calc(100vh - 55px);
+
+				/* background */
+				background: #F2F2F2;
+			}
+			.intro_left h1 {
+				/* font */
+				font-family: Vesterbro;
+				font-style: normal;
+				font-weight: 900;
+				font-size: 60px;
+				line-height: 68px;
+			}
+			.intro_right {
+				/* position */
+				overflow-y: scroll;
+				padding-top:10px;
+				height:calc(100vh - 55px);
+			}
+			.intro_right .header {
+				font-family: Sinkin Sans;
+				font-style: normal;
+				font-weight: 900;
+				font-size: 30px;
+				line-height: 30px;
+			}
+			.intro_right .time {
+				font-family: GT America Mono;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 15px;
+				line-height: 18px;
+			}
+			.intro_right .text {
+				font-family: GT America;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 26px; 
+			}
+
+			.slides_left {
+				/* position */
+				overflow-y: scroll;
+				height:calc(100vh - 55px);
+			}
+			.slides_right {
+				/* position */
+				height:calc(100vh - 55px);
+				padding:50px;
+
+				/* background */
+				background: #000000;
+
+				/* font */
+				font-family: GT America;
+				font-style: normal;
+				font-weight: 400;
+				font-size: 13px;
+				line-height: 13px;
+				text-align: center;
+				color: #FFFFFF;
+
+			}
+			.slides_right .slide_container {
+		   		background-color: red; #efefef87; 
+				position: relative;
+				width: 100%;
+				padding-top: 56%; /* 4:3 Aspect Ratio */
+				margin-top:calc(10vh)
+			}
+			.slides_right .slide_text {
+		   		position:  absolute;
+			   	top: 0;
+			   	left: 0;
+			   	bottom: 0;
+			   	right: 0;
+			   	text-align: center;
+			   	color: white;
+			}
+
+		</style>
+
+	</head>
+
+	<body>
+		{% block content %}
+        {% endblock %}
+	</body>
+</html>
