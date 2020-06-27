@@ -28,6 +28,13 @@ def wireframe2(request):
 	# arr = [1,1,1,1,1,1];
 	return render(request, 'main/wireframe2.html', { })
 
+def svg(request):
+	return render(request, 'main/svg.html', { })
+
+def aspect(request):
+	return render(request, 'main/aspect.html', { })
+
+
 
 
 def render_intro(request, lesson_id):

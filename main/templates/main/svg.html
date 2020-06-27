@@ -1,0 +1,20 @@
+<style>
+	html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+</style>
+<svg viewBox="0 0 800 100">
+    <defs>
+        <rect id="rect" width="100%" height="100%" fill="none" stroke="blue" />
+        <clipPath id="clip">
+            <use xlink:href="#rect"/>
+        </clipPath>
+    </defs>
+    <use xlink:href="#rect"/>
+    <g clip-path="url(#clip)">
+        <text y="10" x="10%" width="10%" height="200%" fill="#000" font-size="30">Only the part inside the viewBox should be visible</text>
+    </g>
+</svg>
