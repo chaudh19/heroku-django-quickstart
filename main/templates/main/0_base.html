@@ -5,30 +5,30 @@
 	<head>
 		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" /> -->
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 		<style>
+			
 			p {
 				margin: 0px !important;
 			}
+
+			/***********/
+			/*   page  */
+			/************/
+
 			.navbar-default {
-			    
-			    /* position */
 				position: absolute;
 				height: 55px;
-				width:100%;
+				width: 100%;
 				left: 0px;
 				top: 0px;
 				padding-left: 50px;
-
-				/* color */
 				background-color: #000 !important;
-			    border-bottom: 1px solid #efefef;
-			    
-			    /* font */
-			    font-family: Sinkin Sans;
+				border-bottom: 1px solid #efefef;
+				font-family: Sinkin Sans;
 				font-style: normal;
 				font-weight: bold;
 				font-size: 11px;
@@ -38,26 +38,45 @@
 			.main_page {
 				padding-top: 55px;
 			}
-			.intro_left {
-				/* position */
-				height:calc(100vh - 55px);
 
-				/* background */
+			/*******************/
+			/*   page > intro  */
+			/*******************/
+			.intro_left, .intro_right {
+				padding:100px 50px 0px 50px;
+			}
+			.intro_left {
+				height: calc(100vh - 55px);
 				background: #F2F2F2;
 			}
 			.intro_left h1 {
-				/* font */
 				font-family: Vesterbro;
 				font-style: normal;
 				font-weight: 900;
 				font-size: 60px;
 				line-height: 68px;
 			}
+			.intro_left .link_box {
+	  			display: flex;
+	  			align-items: center;
+	  			justify-content: center;
+			}
+			.intro_left .link_box a {
+				position: flex;
+				width: 150px;
+				left:calc(50% - 50px);
+				background: black;
+				border-radius: 4px;
+				padding:10px;
+			}
+			.intro_right .row, .intro_right hr {
+				padding-bottom:30px;
+			}	
+			
 			.intro_right {
-				/* position */
 				overflow-y: scroll;
-				padding-top:10px;
-				height:calc(100vh - 55px);
+				padding-top: 10px;
+				height: calc(100vh - 55px);
 			}
 			.intro_right .header {
 				font-family: Sinkin Sans;
@@ -78,17 +97,24 @@
 				font-style: normal;
 				font-weight: normal;
 				font-size: 16px;
-				line-height: 26px; 
+				line-height: 26px;
 			}
+
+			/************************/
+			/*   page > slideshow   */
+			/************************/
+			
+			/**************************************/
+			/*   page > slideshow > slides_left   */
 
 			.slides_left {
 				/* position */
 				overflow-y: scroll;
-				height:calc(100vh - 55px);
-				padding:50px 50px 0px 50px;
+				height: calc(100vh - 55px);
+				padding: 50px 50px 0px 50px;
 			}
 			.slides_left .notes {
-				margin-bottom:50px;
+				margin-bottom: 50px;
 			}
 			.slides_left .notes h1 {
 				font-family: Sinkin Sans;
@@ -107,14 +133,14 @@
 			.slides_left .inline_callout {
 				background: #E8D9D1;
 				border-radius: 4px;
-				padding:20px;
-				margin-bottom:50px;		
+				padding: 20px;
+				margin-bottom: 50px;
 			}
 			.slides_left .inline_callout b {
 				font-family: Sinkin Sans;
-				font-size:13px;
+				font-size: 13px;
 				line-height: 30px;
-				padding-left:10px
+				padding-left: 10px
 			}
 			.slides_left .inline_callout p {
 				font-family: GT America;
@@ -125,21 +151,18 @@
 				padding-left: 30px
 			}
 			.slides_left .inline_callout i {
-				float:left;
-				font-size:20px;
-				padding-top:4px;
+				float: left;
+				font-size: 20px;
+				padding-top: 4px;
 			}
 			
+			/***************************************/
+			/*   page > slideshow > slides_right   */
 			.slides_right {
-				/* position */
-				height:calc(100vh - 55px);
-				padding:50px;
+				height: calc(100vh - 55px);
+				padding: 50px;
 				position: relative;
-
-				/* background */
 				background: #000000;
-
-				/* font */
 				font-family: GT America;
 				font-style: normal;
 				font-weight: 400;
@@ -147,71 +170,259 @@
 				line-height: 13px;
 				text-align: center;
 				color: #FFFFFF;
-
 			}
 			.slides_right #slide_container {
-			  width: 100%;
-			  background: #F3F3F3;
-			  color:black;
-			  border: 3px solid #E4E4E4;
-			  border-radius: 4px;
+				width: 100%;
+				background: #F3F3F3;
+				color: black;
+				border: 3px solid #E4E4E4;
+				border-radius: 4px;
 			}
 			.slides_right .aspect-ratio-box-outer {
-				padding:20px;padding-bottom: 0px;
+				/*padding: 20px;*/
+				/*padding-bottom: 0px;*/
 				text-align: left;
 				overflow: hidden;
 			}
 			.slides_right .aspect-ratio-box {
-			  height: 0;
-			  padding-top: 56.25%;
-			  background: #F3F3F3;
-			  position: relative;
+				height: 0;
+				padding-top: 56.25%;
+				background: #F3F3F3;
+				position: relative;
 			}
 			.slides_right .aspect-ratio-box-inner {
-			  position: absolute;
-			  top: 0;
-			  left: 0;
-			  width: 100%;
-			  height: 100%;
-			  overflow: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
 			}
 			.slides_right #slide_hidden {
-			  /* position */
-			  width: 97%; 
-			  height: 20px; 
-
-			  /* style */
-			  background: #F3F3F3;
-			  border: 3px solid #E4E4E4;
-			  border-top:none;
-			  border-radius: 0px 0px 4px 4px;
+				width: 97%;
+				height: 20px;
+				background: #F3F3F3;
+				border: 3px solid #E4E4E4;
+				border-top: none;
+				border-radius: 0px 0px 4px 4px;
 			}
 			.slides_right .action-container {
 				text-align: center;
-				
 			}
 			.slides_right .action {
-				width:40px;
-				height:40px;
+				width: 40px;
+				height: 40px;
 				color: black;
 				border-radius: 100px;
 				margin: 0 auto;
 				background: #E8D9D1;
-				padding:8px;
+				padding: 8px;
 			}
 			.slides_right .action-container p {
-				color:white;
+				color: white;
 				margin-top: 8px !important;
 			}
 			.slides_right .action:hover {
 				cursor: pointer;
 			}
+			
+			/***************************************************/
+			/*   page > slideshow > slides_right > big_image   */
+			.slides_right .big_image .aspect-ratio-box-inner {
+				padding:40px;
+				padding-bottom: 0px;
+			}
+			.slides_right .big_image .subtitle {
+				font-family: GT America Mono;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 14px;
+				line-height: 20px;
+			}
+			.slides_right .big_image .title {
+				font-family: Vesterbro;
+				font-style: normal;
+				font-weight: 900;
+				font-size: 50px;
+				line-height: 68px;
+			}
+			.slides_right .big_image .overlay-outer {
+				position: relative;
+			}
+			.slides_right .big_image .overlay:after {
+				content: '\A';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background: rgba(0, 0, 0, 0.7);
+				opacity: 1;
+			}
+			.slides_right .big_image .overlay_callout {
+				font-family: GT America;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 13px;
+				line-height: 17px;
+				color: black;
+				background: #E8D9D1;
+				border-radius: 4px;
+				padding: 20px;
+				position: absolute;
+				width: 45%;
+				height: auto;
+				top: 50%;
+				right: -15px;
+			}
+
+			/**************************************************/
+			/*   page > slideshow > slides_right > big_text   */
+			.slides_right .big_text .aspect-ratio-box-inner {
+				height: 100%;
+		  		display: flex;
+		  		justify-content: center;
+		  		align-items: center;
+		  		text-align: center;
+		  		padding:40px;
+			}
+			.slides_right .big_text .text {
+				font-family: GT America;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 30px;
+				line-height: 42px;
+			}
+
+			/****************************************************/
+			/*   page > slideshow > slides_right > two_column   */
+			.slides_right .two_column .title {
+				font-family: Vesterbro;
+				font-style: normal;
+				font-weight: 900;
+				font-size: 50px;
+				line-height: 68px;
+			}
+			.slides_right .two_column .aspect-ratio-box-inner {
+				padding:40px;
+			}
+			.slides_right .two_column .column_wrapper {
+				padding-top:30px;
+			}
+			.slides_right .two_column .image {
+				background:#e4e4e4; width:100%; height:100px
+			}
+			.slides_right .two_column .column .bold {
+				font-weight: 700;
+				padding-top: 20px;
+			}
+			.slides_right .two_column .column p {
+				font-family: GT America;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 26px;
+			}
+			/***********************************************************************/
+			/*   page > slideshow > slides_right > vote_template + quiz_template   */
+
+			.slides_right .vote_template .aspect-ratio-box, .slides_right .quiz_template .aspect-ratio-box {
+				background: white;
+			}
+			.slides_right .break {
+				flex-basis: 100%;
+				height: 0;
+			}
+			.slides_right .vote_template .column {
+				background:#DEE9F6;
+				padding:50px;
+			}
+			.slides_right .vote_template .subtitle, .slides_right .quiz_template .subtitle {
+				font-family: GT America Mono;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 14px;
+				line-height: 20px;
+			}
+			.slides_right .vote_template .title, .slides_right .quiz_template .title {
+				font-family: Vesterbro;
+				font-style: normal;
+				font-weight: 900;
+				font-size: 50px;
+				line-height: 68px;
+			}
+			.slides_right .vote_template .body {
+				font-family: GT America;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 26px;
+			}
+			.slides_right .vote_template .item_container, .slides_right .quiz_template .item_container {
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				flex-wrap: wrap;
+				align-items: center;
+				padding: calc(60% - 120px) 0px;
+			}
+			.slides_right .quiz_template .item_container {
+				padding:5% 0px;
+			}
+			.slides_right .vote_template .item_wrapper, .slides_right .quiz_template .item_wrapper {
+				font-family: GT America Mono;
+				margin-bottom: 15px;
+				display: flex;
+				width: 70%;
+				background: #4D88CD;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: center;
+			}
+			.slides_right .vote_template .item:hover, .slides_right .quiz_template .item:hover {
+				cursor: pointer;
+				-webkit-transform: translate(0.35em, -0.35em);
+				-ms-transform: translate(0.35em, -0.35em);
+				transform: translate(0.35em, -0.35em);
+				-webkit-transition: -webkit-transform 150ms ease-out;
+				transition: -webkit-transform 150ms ease-out;
+				transition: transform 150ms ease-out;
+				transition: transform 150ms ease-out, -webkit-transform 150ms ease-out;
+			}
+			.slides_right .vote_template .item, .slides_right .quiz_template .item {
+				-webkit-transform: translate(0em, 0em);
+				-ms-transform: translate(0em, 0em);
+				transform: translate(0em, 0em);
+				border: 1px solid black;
+				background: white;
+				padding: 0px 20px;
+				width: 100%;
+				height: 45px;
+				justify-content: space-between;
+				align-items: center;
+				display: flex;
+			}
+			.slides_right .vote_template .item p.count {
+				color: #2458AF;
+			}
+			.slides_right .vote_template .reset {
+				color: #9F9F9F;
+				font-family: GT America Mono;
+			}
+			.slides_right .vote_template .reset:hover {
+				cursor: pointer;
+			}
+			.slides_right .quiz_template .item p.result {
+				display: none
+			}
+			.slides_right .quiz_template .item p.result.incorrect {
+				color:#D82922;
+			}
+			.slides_right .quiz_template .item p.result.correct {
+				color:#2458AF;
+			}
 
 
-			/*.slides_right .flexbox-centering {
-			  height: 100%;
-			  font-size: 5vw;
-			}*/
 
 		</style>
 
@@ -220,5 +431,40 @@
 	<body>
 		{% block content %}
         {% endblock %}
+
+        <script>
+
+			/******************************************************/
+			/*   page > slideshow > slides_right > vote_template  */
+
+			$(".vote_template .item").click(function(e) {
+				var curr = $(this).find('.count').text()
+				$(this).find('.count').text(Number(curr) + 1)
+			});
+			$(".vote_template .reset").click(function(e) {
+				$('.vote_template .count').text('');
+			});
+
+
+			/******************************************************/
+			/*   page > slideshow > slides_right > quiz_template  */
+
+			$( ".quiz_template .item").click(function(e) {
+			  $(this).find('.result').show()
+			});
+
+			$('#fullscreen').click(function() {
+			    $('#slide_container').css({
+			        position: 'fixed',
+			        top: 0,
+			        right: 0,
+			        bottom: 0,
+			        left: 0,
+			        zIndex: 999
+			    });
+			});
+
+		</script>
 	</body>
+
 </html>

@@ -22,7 +22,7 @@
 	</div>
 	<div class="col-lg-7 slides_right">
 		
-		<div class="action-container" style="float:right">
+		<div class="action-container" style="float:right" id="fullscreen">
 			<div class="action">
 		  		<i class="material-icons">fullscreen</i>
 			</div>
@@ -34,7 +34,9 @@
 		<div class="row justify-content-center" style="padding:15px">
 
 			<div id="slide_container">
-				{% include slide_template %}
+				<div class="aspect-ratio-box-outer">
+					{% include slide_template %}
+				</div>
 			</div>
 
 			<div id="slide_hidden">
@@ -49,39 +51,35 @@
 			<p>Previous</p>
 		</div>
 
+		{% if next %}
 		<div class="action-container" style="float:right" id="next">
 			<div class="action">
 		  		<i class="material-icons">keyboard_arrow_right</i>
 			</div>
 			<p>Next</p>
 		</div>
+		{% endif %}
 
 	</div>
 </div>
 
 <script>
 	$( "#previous" ).click(function(e) {
-
-	  window.location.replace("../{{prev}}");
+		{% if prev %}
+	  		window.location.replace("../{{prev}}");
+	  	{% else %}
+	  		window.location.replace("../");
+	  	{% endif %}
 	});
 
 	$( "#next" ).click(function(e) {
 		e.preventDefault();
 
 		const element = document.querySelector('#slide{{page_id}}');
-		element.classList.add('animate__animated', 'animate__fadeOut');
-
-	  // window.location.replace("../{{next}}");
-
-		  setTimeout(function () {
+		// element.classList.add('animate__animated', 'animate__fadeOut');
+		  // setTimeout(function () {
 	       window.location.replace("../{{next}}"); //will redirect to your blog page (an ex: blog.html)
-	    }, 300);
+	    // }, 300);
 
-	  // $( "#slide1" ).addClass( "animate__animated animate__bounceOutLeft" );
-	  // $( "#slide2" ).addClass( "animate__animated animate__fadeIn" );
-
-	 //  const element = document.querySelector('#next');
-		// element.classList.add('animate__animated', 'animate__bounceOutLeft');
-	
 	});
 </script>

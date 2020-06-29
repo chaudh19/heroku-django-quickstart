@@ -1,0 +1,41 @@
+<div class="aspect-ratio-box animate__animated animate__fadeIn quiz_template" id="slide6">
+  <div class="aspect-ratio-box-inner">
+	
+	<div class="row" style="display: flex;">
+		<div class="col-12" style="background:#DEE9F6; height:150px; padding:30px 50px;">
+			<p class="subtitle">Renting a movie</p>
+			<p class="title">30 years ago</p>
+		</div>
+		<div class="col-12">
+
+			<div class="item_container">
+
+				{% for a in arr %}
+				{% if forloop.last %}
+						<div class="item_wrapper">
+							<div class="item">
+								<p>sdf</p>
+								<p class="result correct">Correct!</p>
+							</div>
+						</div>
+						<div class="break"></div>
+					{% else %}
+
+					<div class="item_wrapper">
+						<div class="item">
+							<p>sdf</p>
+							<p class="result incorrect">Try again!</p>
+						</div>
+					</div>
+				  <div class="break"></div>
+				  {% endif %}
+					
+				{% endfor %}
+
+			</div>
+			
+		</div>
+	</div>
+
+  </div>
+</div>
