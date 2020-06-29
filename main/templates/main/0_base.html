@@ -4,6 +4,10 @@
 <html lang="en">
 	<head>
 		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 		<style>
 			p {
@@ -17,7 +21,7 @@
 				width:100%;
 				left: 0px;
 				top: 0px;
-				/*padding-left: 50px;*/
+				padding-left: 50px;
 
 				/* color */
 				background-color: #000 !important;
@@ -81,7 +85,51 @@
 				/* position */
 				overflow-y: scroll;
 				height:calc(100vh - 55px);
+				padding:50px 50px 0px 50px;
 			}
+			.slides_left .notes {
+				margin-bottom:50px;
+			}
+			.slides_left .notes h1 {
+				font-family: Sinkin Sans;
+				font-style: normal;
+				font-weight: bold;
+				font-size: 15px;
+				line-height: 28px;
+			}
+			.slides_left .notes p {
+				font-family: GT America;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 26px;
+			}
+			.slides_left .inline_callout {
+				background: #E8D9D1;
+				border-radius: 4px;
+				padding:20px;
+				margin-bottom:50px;		
+			}
+			.slides_left .inline_callout b {
+				font-family: Sinkin Sans;
+				font-size:13px;
+				line-height: 30px;
+				padding-left:10px
+			}
+			.slides_left .inline_callout p {
+				font-family: GT America;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 26px;
+				padding-left: 30px
+			}
+			.slides_left .inline_callout i {
+				float:left;
+				font-size:20px;
+				padding-top:4px;
+			}
+			
 			.slides_right {
 				/* position */
 				height:calc(100vh - 55px);
@@ -106,11 +154,12 @@
 			  background: #F3F3F3;
 			  color:black;
 			  border: 3px solid #E4E4E4;
+			  border-radius: 4px;
 			}
 			.slides_right .aspect-ratio-box-outer {
-				padding:20px;
-				padding-bottom:0px;
+				padding:20px;padding-bottom: 0px;
 				text-align: left;
+				overflow: hidden;
 			}
 			.slides_right .aspect-ratio-box {
 			  height: 0;
@@ -128,15 +177,37 @@
 			}
 			.slides_right #slide_hidden {
 			  /* position */
-			  width: 90%; 
-			  height:20px; 
+			  width: 97%; 
+			  height: 20px; 
 
 			  /* style */
 			  background: #F3F3F3;
 			  border: 3px solid #E4E4E4;
 			  border-top:none;
+			  border-radius: 0px 0px 4px 4px;
 			}
-			
+			.slides_right .action-container {
+				text-align: center;
+				
+			}
+			.slides_right .action {
+				width:40px;
+				height:40px;
+				color: black;
+				border-radius: 100px;
+				margin: 0 auto;
+				background: #E8D9D1;
+				padding:8px;
+			}
+			.slides_right .action-container p {
+				color:white;
+				margin-top: 8px !important;
+			}
+			.slides_right .action:hover {
+				cursor: pointer;
+			}
+
+
 			/*.slides_right .flexbox-centering {
 			  height: 100%;
 			  font-size: 5vw;

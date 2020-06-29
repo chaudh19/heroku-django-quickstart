@@ -1,0 +1,66 @@
+<style>
+
+	.break {
+  flex-basis: 100%;
+  height: 0;
+}
+.slides_right .subtitle {
+		font-family: GT America Mono;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 20px;
+	}
+	.slides_right .title {
+		font-family: Vesterbro;
+		font-style: normal;
+		font-weight: 900;
+		font-size: 50px;
+		line-height: 68px;
+	}
+	.slides_right .body {
+		font-family: GT America;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 26px;
+	}
+	.slides_right .vote_container {
+		height: 100%; display: flex; justify-content: center; flex-wrap: wrap; align-items: center; padding:calc(60% - 120px) 0px;
+	}
+	.slides_right .vote_item {
+		background:#e4e4e4; width:70%; height:45px;  margin-bottom: 15px;
+		display: flex;
+		padding-left:20px;
+		 justify-content: left; flex-wrap: wrap; align-items: center; 
+	}
+</style>
+
+<div class="aspect-ratio-box-outer" style="padding:0px">
+	<div class="aspect-ratio-box animate__animated animate__fadeIn" id="slide5">
+	  <div class="aspect-ratio-box-inner">
+		
+		<div class="row" style="display: flex;">
+			<div class="col-6" style="background:#e4e4e4;padding:30px">
+				<p class="subtitle">Renting a movie</p>
+				<p class="title">30 years ago</p>
+				<p class="body">Turn and talk to your partner:<br/>
+					How comfortable are you with this use of your data? Where do you fall on the scale to the right?
+				</p>
+			</div>
+			<div class="col-6 align-middle">
+				<div class="vote_container">
+
+					{% for a in arr %}
+					<div class="vote_item">sdf</div>
+					  <div class="break"></div> <!-- break -->
+					{% endfor %}
+
+				</div>
+				
+			</div>
+		</div>
+
+	  </div>
+	</div>
+</div>

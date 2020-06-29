@@ -1,20 +1,73 @@
-<!-- <div class="aspectRatioSizer" id="slide_container">
-  <svg viewBox="0 0 3 2" />
-  <div id="slide_content">
-    ONE. Content goes here
-  </div>
-</div>
+<style>
+	/** override **/
+	.slides_right .aspect-ratio-box-outer {
+		padding:40px;
+		padding-bottom: 0px !important;
+	}
 
-<div id="slide_hidden">
-</div> -->
+	/** new css **/
+	.slides_right .image-outer {
+		position: relative;
+	}
+	.slides_right .image:after {
+	    content:'\A';
+	    position:absolute;
+	    width:100%; 
+	    height:100%;
+	    top:0; left:0;
+	    background:rgba(0,0,0,0.7);
+	    opacity:1;
+	}
+	.slides_right .callout {
+		font-family: GT America;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 13px;
+		line-height: 17px;
+		color:black;
+
+		background: #E8D9D1;
+		border-radius: 4px;
+		padding:20px;
+		position:absolute;
+	    width:45%; 
+	    height:auto;
+	    top:50%;
+	    right:-15px;
+	}
+	.slides_right .subtitle {
+		font-family: GT America Mono;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 20px;
+	}
+	.slides_right .title {
+		font-family: Vesterbro;
+		font-style: normal;
+		font-weight: 900;
+		font-size: 50px;
+		line-height: 68px;
+	}
+
+
+</style>
 <div class="aspect-ratio-box-outer">
-<div class="aspect-ratio-box">
-  <div class="aspect-ratio-box-inner">
-    <!-- <div class="flexbox-centering"> -->
-      	<p>Renting a movie</p>
-		<h1>Now</h1>
-		<img src="https://rt-homepage.roadtrippers.com/wp-content/uploads/2019/09/bend-blockbuster-6.jpg" width="100%"/>
-    <!-- </div>   -->
-  </div>
-</div>
+	<div class="aspect-ratio-box animate__animated animate__fadeIn" id="slide2">
+	  <div class="aspect-ratio-box-inner" >
+	  	<p class="subtitle">Renting a movie</p>
+		<h1 class="title">Now</h1>
+		<!-- <div class="image-outer"> -->
+			<!-- <div class="image"> -->
+				<img src="https://rt-homepage.roadtrippers.com/wp-content/uploads/2019/09/bend-blockbuster-6.jpg" width="100%"/>
+			<!-- </div> -->
+		<!-- </div> -->
+	  </div>
+	  
+	  <!-- <div class="callout">
+			hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf hwelosdf 
+		</div>
+ -->
+	</div>
+
 </div>
