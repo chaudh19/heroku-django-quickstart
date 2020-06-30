@@ -11,4 +11,5 @@ urlpatterns = [
     path('aspect', views.aspect, name='aspect'),
     path('render_page/<int:lesson_id>/', views.render_intro, name='render_intro'),
     path('render_page/<int:lesson_id>/<int:page_id>/', views.render_slideshow, name='render_slideshow'),
+    # path('render_page/<int:lesson_id>/<int:page_id>/?fs=<int:fs>', views.render_slideshow, name='render_slideshow'),
 ]

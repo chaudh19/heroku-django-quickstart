@@ -3,7 +3,7 @@
 {% block content %}
 
 	<nav class="navbar navbar-default">
-		<p>Security > Lesson {{lesson_id}}</p> 
+		<p>Security > <a href='{% url "render_intro" lesson_id %}'>Lesson {{lesson_id}}</a></p> 
 	</nav>
 
 	<div class="main_page container-fluid">

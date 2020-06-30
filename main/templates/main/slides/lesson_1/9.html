@@ -1,0 +1,37 @@
+<div class="aspect-ratio-box animate__animated animate__fadeIn vote_template">
+  <div class="aspect-ratio-box-inner">
+	
+	<div class="row">
+		<div class="col-6 column">
+			<p class="subtitle">Scenario</p>
+			<p class="title">You were looking at a pair of Nike shoes on their website last week. Now, you’re seeing Nike ads for the exact pair of shoes across multiple websites. In order to serve these ads, Nike has shared your data with dozens of ad tracking companies.</p>
+			<p class="body">Turn and talk to your partner:<br/>
+				How comfortable are you with this use of your data? Where do you fall on the scale to the right?
+			</p>
+		</div>
+		<div class="col-6">
+			<div class="item_container">
+
+				{% for a in comfort_scale %}
+					
+					<div class="item_wrapper">
+						<div class="item">
+							<p>{{a}}</p>
+							<p class="count"></p>
+						</div>
+					</div>
+
+				{% endfor %}
+
+				<div class="break"></div>
+				<p class="reset" style="float:right">Reset votes</p>
+
+			</div>
+
+			
+		</div>
+	</div>
+
+  </div>
+</div>
+

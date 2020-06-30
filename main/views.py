@@ -43,18 +43,13 @@ def render_intro(request, lesson_id):
 	title="Design collaboration that doesn’t break at scale" 
 	content = {
 	'lesson_1': {
-		'title':"Design collaboration that doesn’t break at scale", 
+		'title':"Lesson 1: Introduction", 
 		'parts': {
-			'Overview': {'text':'Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on. <br/><br/> Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on.', 'time':'3 minutes'},
-			'Part 1': {'text':'Part one - Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on.', 'time':'3 minutes'},
-			'Part 2': {'text':'Part one - Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on.', 'time':'3 minutes'},
-			'Part 3': {'text':'Part one - Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on.', 'time':'3 minutes'},
-			'Part 4': {'text':'Part one - Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on.', 'time':'3 minutes'},
-			'Part 5': {'text':'Part one - Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on.', 'time':'3 minutes'},
-			'Part 6': {'text':'Part one - Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on.', 'time':'3 minutes'},
-			'Part 7': {'text':'Part one - Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on.', 'time':'3 minutes'},
-			'Part 8': {'text':'Part one - Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on.', 'time':'3 minutes'},
-			'Part 9': {'text':'Part one - Import your Sketch and Adobe XD files into Abstract and instantly create a centralized place for your most up-to-date design work and supporting documentation. In Abstract, the latest version is called master, so there’s never any confusion about what’s final and what’s still being worked on.', 'time':'3 minutes'},
+			'Overview': {'text':'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at lorem vulputate, imperdiet tortor quis, facilisis ex. Aliquam egestas metus vel enim aliquet, pulvinar luctus leo placerat. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel nulla placerat sapien iaculis volutpat. Nullam facilisis tortor in ultrices ullamcorper. Quisque hendrerit, urna non fringilla gravida, velit ipsum bibendum nisl, id ultrices ligula nibh in justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. <br/><br/>Ut porttitor, purus eu semper venenatis, lectus nisl convallis lorem, at vestibulum nisi metus eu est. Sed eleifend libero urna, vitae interdum ipsum sagittis sed. Vivamus risus nisi, euismod tempus maximus ac, egestas a ipsum. Duis eu quam libero. Maecenas consectetur ultrices purus et accumsan. Pellentesque quam libero, mattis ut nibh in, imperdiet interdum nibh. Vestibulum imperdiet orci sit amet dui condimentum, eget vestibulum dolor interdum.'},
+			'Teacher-led instruction': {'text':'Morbi ante massa, imperdiet ut bibendum ac, mollis at purus. Etiam luctus ligula odio, ac mattis nisl ultricies a. Suspendisse laoreet malesuada mauris, vel blandit felis vestibulum non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dolor dolor, ultricies ut nisl sed, congue maximus felis. Fusce aliquet justo odio, vel consectetur libero molestie eget.', 'time':'10 minutes'},
+			'Turn-and-talk': {'text':'Morbi ante massa, imperdiet ut bibendum ac, mollis at purus. Etiam luctus ligula odio, ac mattis nisl ultricies a. Suspendisse laoreet malesuada mauris, vel blandit felis vestibulum non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dolor dolor, ultricies ut nisl sed, congue maximus felis. Fusce aliquet justo odio, vel consectetur libero molestie eget.', 'time':'20 minutes'},
+			'Teacher-led instruction ': {'text':'Morbi ante massa, imperdiet ut bibendum ac, mollis at purus. Etiam luctus ligula odio, ac mattis nisl ultricies a. Suspendisse laoreet malesuada mauris, vel blandit felis vestibulum non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dolor dolor, ultricies ut nisl sed, congue maximus felis. Fusce aliquet justo odio, vel consectetur libero molestie eget.', 'time':'5 minutes'},
+			'Group discussion': {'text':'Morbi ante massa, imperdiet ut bibendum ac, mollis at purus. Etiam luctus ligula odio, ac mattis nisl ultricies a. Suspendisse laoreet malesuada mauris, vel blandit felis vestibulum non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dolor dolor, ultricies ut nisl sed, congue maximus felis. Fusce aliquet justo odio, vel consectetur libero molestie eget.', 'time':'10 minutes'},
 			}
 		},
 	'lesson_2': {
@@ -77,8 +72,16 @@ def render_intro(request, lesson_id):
 
 	return render(request, 'main/1_page.html', { "lesson_id": lesson_id, "special_type":'intro', "title":title, "content": content['lesson_' + str(lesson_id)] })
 
+
 def render_slideshow(request, lesson_id, page_id):
+	try: 
+		fs = request.GET['fs']
+	except:
+		fs = '0'
+	print(fs)
+
 	arr = [1,1,1,1];
+	comfort_scale = ['🙂 - Pretty comfortable','🤨 - A bit uncomfortable','😨 - Very uncomfortable', '😤 - Appalled'];
 	content = {
 		'lesson_1': { 
 			1:[
@@ -120,17 +123,46 @@ def render_slideshow(request, lesson_id, page_id):
 					'type':'Speaker Notes',
 					'text':'These services have a lot more information about you that a physical map could never have known. They can track exactly where you’re going and when. And they can easily guess:<br/><ul><li>Where you work and where you live</li><li>What your favorite restaurants </li><li>What hotels you stay at when you travel</li><li>Where you bank or shop for groceries</li></ul>'
 				}
-			]
+			],
+			7:[
+				{
+					'type':'Speaker Notes',
+					'text':'As you can see, there’s a lot more data floating around as we move into the digital economy. And these changes have happened really quickly. 30 years ago, your parents were probably using BlockBuster, physical maps, film cameras, and shopping exclusively at physical stores. <br/><br/>But in the last 30 years, there have been seismic shifts with the introduction of the internet. And now that there’s a lot more data floating around, it’s important to realize how all of this data about you can be used in ways that range from benign to malicious.<br/>'
+				},
+				{
+					'type':'Check for understanding',
+					'text':'You may want to reforce the meaning of new vocabulary with your students:<ul><li>Benign mean harmless</li><li>Malicious means harmful, destructive</li></ul>'
+				}
+			],
+			8:[
+				{
+					'type':'Speaker Notes',
+					'text':'Let’s look at a few of the ways that data can be used. <br/><br/>Scenario: Based on your previous watch history, Netflix personalizes movie recommendations for you. <br/><br/>I want you to turn and talk to your partner:<br/>How comfortable are you with this use of your data? Where do you fall on the scale below?<br/>'
+				},
+				{
+					'type':'Interactive Slide',
+					'text':'Click on each choice to record your students’ votes'
+				}
+			],
+			9:[
+				{
+					'type':'Speaker Notes',
+					'text':'Here\'s our next scenario. You were looking at a pair of Nike shoes on their website last week. Now, you’re seeing Nike ads for the exact pair of shoes across multiple websites. In order to serve these ads, Nike has shared your data with dozens of ad tracking companies. <br/><br/>I want you to turn and talk to your partner:<br/>How comfortable are you with this use of your data? Where do you fall on the scale below?<br/>'
+				},
+				{
+					'type':'Interactive Slide',
+					'text':'Click on each choice to record your students’ votes'
+				}
+			],
+			
+
+
+
 		}
 	}
 
-	print('max key')
-	print(max(content['lesson_'+str(lesson_id)].keys()))
 	max_ = max(content['lesson_'+str(lesson_id)].keys())
-	print('min key')
-	print(min(content['lesson_'+str(lesson_id)].keys()))
 	min_ = min(content['lesson_'+str(lesson_id)].keys())
-
 	prev_ = page_id-1
 	next_ = page_id+1
 	if prev_ < min_: 
@@ -138,8 +170,12 @@ def render_slideshow(request, lesson_id, page_id):
 	if next_ > max_:
 		next_ = None;
 
-	print(prev_)
-	print(next_)
+	if fs == '1':
+		fs = True
+	else: 
+		fs = False
+	print('fs')
+	print(fs)
 
 	return render(request, 'main/1_page.html', 
 		{ "lesson_id":lesson_id, 
@@ -148,7 +184,9 @@ def render_slideshow(request, lesson_id, page_id):
 		"content": content['lesson_'+str(lesson_id)], 
 		"prev": prev_,
 		"next": next_,
-		"arr": arr
+		"arr": arr,
+		"comfort_scale":comfort_scale, 
+		"fs": fs
 		}
 	)
 	

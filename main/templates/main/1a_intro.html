@@ -1,23 +1,24 @@
 <style>
-
+			
 </style>
 <div class="row">
 	<div class="col-lg-4 intro_left" >
-		<h1>{{content.title}}</h1>
+		<h1>{{content.title|safe}}</h1>
 		<div class="link_box">
-			<a href="/main/render_page/{{lesson_id}}/1/">go</a>
+			<a href="{% url 'render_slideshow' lesson_id 1 %}">Start lesson <img src="https://assets-global.website-files.com/5e9d939b6c7f32259d33c1cc/5e9d939b6c7f325a9333c1ff_ico-arrow-right.svg" alt="" height="18px"></a>
 		</div>
 	</div>
 	<div class="col-lg-8 intro_right">
-		<!-- <h3>{{content}}</h3> -->
+		
 		{% for key, value in content.parts.items %}
 		<div class="row">
 			<div class="col-md-4" >
-				<h3 class="header">{{key}}</h3>
-				<h3 class="time">{{value.time}}</h3>
+				<p class="subtitle">{% if forloop.first %}{% else %}Part {{ forloop.counter0 }}{% endif %}</p>
+				<p class="header">{{key|safe}}</p>
 			</div>
 			<div class="col-md-8" >
-				<h3 class="text">{{value.text|safe}}</h3>
+				{% if value.time %}<p class="time">{{value.time}}</p>{% endif %}
+				<p class="text">{{value.text|safe}}</p>
 			</div>
 		</div>
 		{% if forloop.last %}{% else %}<hr/>{% endif %}

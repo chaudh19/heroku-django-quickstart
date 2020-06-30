@@ -3,6 +3,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		<link rel="shortcut icon" href="https://i.ya-webdesign.com/images/cartoon-plant-png.png" />
 		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" /> -->
@@ -35,6 +36,10 @@
 				line-height: 11px;
 				color: #FFFFFF;
 			}
+			.navbar a, .navbar a:hover, .navbar a:active, .navbar a:focus {
+				color:white;
+				text-decoration: none;
+			}
 			.main_page {
 				padding-top: 55px;
 			}
@@ -53,21 +58,34 @@
 				font-family: Vesterbro;
 				font-style: normal;
 				font-weight: 900;
-				font-size: 60px;
-				line-height: 68px;
+				font-size: 4vw;
+				line-height: 108%;
+			}
+
+			/* small devices */
+			@media (max-width: 991.98px) {
+				.intro_left {
+					height:auto;
+					padding-bottom:100px;
+				}
+				.intro_left h1 {
+					font-size: 40px;
+				}
 			}
 			.intro_left .link_box {
-	  			display: flex;
-	  			align-items: center;
-	  			justify-content: center;
+				margin-top:60px;
 			}
 			.intro_left .link_box a {
-				position: flex;
-				width: 150px;
-				left:calc(50% - 50px);
-				background: black;
-				border-radius: 4px;
-				padding:10px;
+				border: 1px solid black;
+				background: #E8D9D1;
+				padding: 15px 20px;
+				font-size:16px;
+				font-family: GT America Mono;
+				color:black;
+				text-decoration: none;
+			}
+			.intro_left .link_box img {
+				margin-top: -6px;
 			}
 			.intro_right .row, .intro_right hr {
 				padding-bottom:30px;
@@ -75,15 +93,22 @@
 			
 			.intro_right {
 				overflow-y: scroll;
-				padding-top: 10px;
 				height: calc(100vh - 55px);
 			}
 			.intro_right .header {
-				font-family: Sinkin Sans;
 				font-style: normal;
-				font-weight: 900;
-				font-size: 30px;
+				font-weight: 800;
+				font-size: 24px;
 				line-height: 30px;
+			}
+			.intro_right .subtitle {
+				font-family: GT America Mono;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 15px;
+				line-height: 18px;
+				margin-bottom: 5px !important;
+				padding:3px 0px;
 			}
 			.intro_right .time {
 				font-family: GT America Mono;
@@ -91,6 +116,11 @@
 				font-weight: normal;
 				font-size: 15px;
 				line-height: 18px;
+				background: #E8D9D1;
+				display: inline-block;
+				padding:3px 10px;
+				border-radius: 4px;
+				margin-bottom: 10px !important;
 			}
 			.intro_right .text {
 				font-family: GT America;
@@ -108,15 +138,27 @@
 			/*   page > slideshow > slides_left   */
 
 			.slides_left {
-				/* position */
 				overflow-y: scroll;
 				height: calc(100vh - 55px);
-				padding: 50px 50px 0px 50px;
+				padding: 120px 50px 0px 50px;
+			}
+			/* small devices */
+			@media (max-width: 991.98px) {
+				.slides_left {
+					overflow-y: auto;
+					height: auto;
+					padding: 50px 50px 0px 50px;
+				}
 			}
 			.slides_left .notes {
 				margin-bottom: 50px;
 			}
 			.slides_left .notes h1 {
+				/*font-weight: 800;
+				font-size: 20px;
+				line-height: 26px;
+				font-style: normal;
+				font-weight: bold;*/
 				font-family: Sinkin Sans;
 				font-style: normal;
 				font-weight: bold;
@@ -137,6 +179,10 @@
 				margin-bottom: 50px;
 			}
 			.slides_left .inline_callout b {
+				/*font-weight: 700;
+				font-size: 18px;
+				line-height: 20px;
+				padding-left: 10px*/
 				font-family: Sinkin Sans;
 				font-size: 13px;
 				line-height: 30px;
@@ -177,16 +223,34 @@
 				color: black;
 				border: 3px solid #E4E4E4;
 				border-radius: 4px;
+				position:relative;
+			}
+			.slides_right #slide_container.fullscreen {
+				position: fixed;
+		        top: 0;
+		        right: 0;
+		        bottom: 0;
+		        left: 0;
+		        z-index: 999;
+		    }
+			.slides_right #close_fs {
+				display: none;
+			}
+			.slides_right .fullscreen #close_fs {
+				display: block;
+				content: "close";
+				position: fixed;
+				z-index:1000;
+				top:0;
+				right:0;
 			}
 			.slides_right .aspect-ratio-box-outer {
-				/*padding: 20px;*/
-				/*padding-bottom: 0px;*/
 				text-align: left;
 				overflow: hidden;
 			}
 			.slides_right .aspect-ratio-box {
 				height: 0;
-				padding-top: 56.25%;
+				padding-top: 66%;
 				background: #F3F3F3;
 				position: relative;
 			}
@@ -232,12 +296,20 @@
 				padding:40px;
 				padding-bottom: 0px;
 			}
+			.slides_right .fullscreen .big_image .aspect-ratio-box-inner {
+				padding:60px;
+			}
 			.slides_right .big_image .subtitle {
 				font-family: GT America Mono;
 				font-style: normal;
 				font-weight: normal;
 				font-size: 14px;
-				line-height: 20px;
+				line-height: 20px; 
+				padding-bottom:5px;
+			}
+			.slides_right .fullscreen .big_image .subtitle {
+				font-size: 20px;
+				padding-bottom:10px;
 			}
 			.slides_right .big_image .title {
 				font-family: Vesterbro;
@@ -245,6 +317,10 @@
 				font-weight: 900;
 				font-size: 50px;
 				line-height: 68px;
+			}
+			.slides_right .fullscreen .big_image .title {
+				font-size: 70px;
+				padding-bottom:20px;
 			}
 			.slides_right .big_image .overlay-outer {
 				position: relative;
@@ -273,7 +349,11 @@
 				width: 45%;
 				height: auto;
 				top: 50%;
-				right: -15px;
+				right: 0px;
+			}
+			.slides_right .fullscreen .big_image .overlay_callout {
+				font-size:24px;
+				line-height: 34px;
 			}
 
 			/**************************************************/
@@ -343,13 +423,14 @@
 				font-weight: normal;
 				font-size: 14px;
 				line-height: 20px;
+				padding-bottom: 5px;
 			}
 			.slides_right .vote_template .title, .slides_right .quiz_template .title {
-				font-family: Vesterbro;
+				font-family: Sinkin Sans;
 				font-style: normal;
 				font-weight: 900;
-				font-size: 50px;
-				line-height: 68px;
+				font-size: 20px;
+				line-height: 30px;
 			}
 			.slides_right .vote_template .body {
 				font-family: GT America;
@@ -357,6 +438,7 @@
 				font-weight: normal;
 				font-size: 16px;
 				line-height: 26px;
+				padding: calc(60% - 120px) 0px;
 			}
 			.slides_right .vote_template .item_container, .slides_right .quiz_template .item_container {
 				height: 100%;
@@ -397,10 +479,11 @@
 				background: white;
 				padding: 0px 20px;
 				width: 100%;
-				height: 45px;
+				height: 60px;
 				justify-content: space-between;
 				align-items: center;
 				display: flex;
+				font-size:16px;
 			}
 			.slides_right .vote_template .item p.count {
 				color: #2458AF;
@@ -433,6 +516,32 @@
         {% endblock %}
 
         <script>
+        	$( "#previous" ).click(function(e) {
+				if ($('#slide_container').hasClass('fullscreen')) {
+			  		add = '?fs=1'
+			  	} else {
+			  		add = ''
+			  	}
+
+			  	{% if prev %}
+			  		window.location.replace("../{{prev}}" + add);
+			  	{% endif %}
+
+
+			});
+
+			$( "#next" ).click(function(e) {
+				if ($('#slide_container').hasClass('fullscreen')) {
+			  		add = '?fs=1'
+			  	} else {
+			  		add = ''
+			  	}
+				// element.classList.add('animate__animated', 'animate__fadeOut');
+				  // setTimeout(function () {
+			       window.location.replace("../{{next}}" + add); //will redirect to your blog page (an ex: blog.html)
+			    // }, 300);
+
+			});
 
 			/******************************************************/
 			/*   page > slideshow > slides_right > vote_template  */
@@ -453,15 +562,35 @@
 			  $(this).find('.result').show()
 			});
 
-			$('#fullscreen').click(function() {
-			    $('#slide_container').css({
-			        position: 'fixed',
-			        top: 0,
-			        right: 0,
-			        bottom: 0,
-			        left: 0,
-			        zIndex: 999
-			    });
+			/*************************************/
+			/*   page > slideshow > fullscreen   */
+
+			$( "#fullscreen" ).click(function(e) {
+				window.location.replace(window.location.href + "?fs=1")
+			});
+
+			$( "#close_fs" ).click(function(e) {
+				old_url = window.location.href
+				new_url = window.location.href.substring(0, old_url.indexOf('?'))
+				window.location.replace(new_url); 
+			});
+
+			/*******************************************/
+			/*   page > slideshow > left, right, del   */
+
+			$(document).keydown(function(e) {
+				if(e.which == 37) {
+					$('#previous').click()
+				}
+				else if(e.which == 39) {
+					$('#next').click()
+				}
+				else if(e.which == 8) {
+					$('#close_fs').click()
+				}
+				// else {
+				// 	console.log('other key pressed ' +  e.which)
+				// }
 			});
 
 		</script>
